@@ -7,7 +7,7 @@ reasoning_options = [{ type = "effort", values = ["low", "medium", "high", "xhig
 [cost]
 input = 2.40
 output = 12.00
-cache_read = 0.24
+cache_read = 0.12
 cache_write = 3.00
 
 [provider]
