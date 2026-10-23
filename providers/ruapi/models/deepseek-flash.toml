@@ -12,7 +12,6 @@ name = "DeepSeek Flash"
 [capabilities]
 reasoning = { supported = true, toggle = true, effort = ["low", "high", "max"] }
 cache = { implicit = true }
-structured_output = true
 
 [api.chat-completions]
 compatibility = { reasoning_field = "reasoning_content" }
