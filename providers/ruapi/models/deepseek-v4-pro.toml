@@ -1,22 +1,26 @@
-# Pricing: https://www.ruapi.ai/pricing (standard tier, USD per 1M tokens, accessed 2026-10-16)
-# OpenAI-compatible POST https://www.ruapi.ai/v1/chat/completions; thinking and reasoning_effort are forwarded unchanged.
+# Prices from https://www.ruapi.ai/pricing (standard rate), checked 2026-10-23. USD per 1M tokens.
+# Reasoning tokens are billed at the output rate.
+# `deepseek-v4-pro` serves DeepSeek V4 Pro 0813, as on DeepSeek's own API (providers/deepseek/models/deepseek-v4-pro.toml).
+# OpenAI-compatible POST https://www.ruapi.ai/v1/chat/completions; thinking and reasoning_effort are
+# forwarded unchanged, reasoning comes back in reasoning_content; prompt caching is automatic.
 # Toggle: thinking.type = enabled|disabled
 # Effort: reasoning_effort = low|high|max
-# Reasoning tokens are billed at the output rate.
-base_model = "deepseek/deepseek-v4-pro"
+schema = 2
+base_model = "deepseek/deepseek-v4-pro-0813"
+name = "DeepSeek V4 Pro"
 
-[[reasoning_options]]
-type = "toggle"
+[capabilities]
+reasoning = { supported = true, toggle = true, effort = ["low", "high", "max"] }
+cache = { implicit = true }
+structured_output = true
 
-[[reasoning_options]]
-type = "effort"
-values = ["low", "high", "max"]
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_content" }
 
-[interleaved]
-field = "reasoning_content"
+[cost.text.input]
+price = 1.584
+cache = { read = 0.06 }
 
-[cost]
-input = 1.584
-output = 4.752
+[cost.text.output]
+price = 4.752
 reasoning = 4.752
-cache_read = 0.06
