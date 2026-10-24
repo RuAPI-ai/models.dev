@@ -5,7 +5,8 @@
 # `deepseek-v4-pro` serves DeepSeek V4 Pro 0813, as on DeepSeek's own API (providers/deepseek/models/deepseek-v4-pro.toml).
 # OpenAI-compatible POST https://www.ruapi.ai/v1/chat/completions; thinking and reasoning_effort are
 # forwarded unchanged, reasoning comes back in reasoning_content; prompt caching is automatic.
-# response_format is forwarded unchanged; DeepSeek itself accepts json_object and rejects json_schema.
+# Structured output: response_format is forwarded unchanged; DeepSeek accepts json_object but rejects strict
+# json_schema with 400, so structured_output = false (as in providers/alibaba-token-plan).
 # Toggle: thinking.type = enabled|disabled
 # Effort: reasoning_effort = low|high|max
 schema = 2
@@ -15,7 +16,7 @@ name = "DeepSeek V4 Pro"
 [capabilities]
 reasoning = { supported = true, toggle = true, effort = ["low", "high", "max"] }
 cache = { implicit = true }
-structured_output = true
+structured_output = false
 
 [api.chat-completions]
 compatibility = { reasoning_field = "reasoning_content" }
